@@ -13,6 +13,14 @@ router.post('/register', (req, res) => {
   user.password = hash;
 
 
+  Users.add(user)
+    .then(user => {
+      res.status(201).json(user);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+
 });
 
 router.post('/login', (req, res) => {
