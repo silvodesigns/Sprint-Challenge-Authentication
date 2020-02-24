@@ -13,7 +13,7 @@ const sessionConfig = {
     name: 'monkey',
     secret: "kjashjskdaakjakdsjx",
     cookie: {
-        maxAge: 2000,
+        maxAge: 3600000,
         secure: false,
         httpOnly: true
     },
