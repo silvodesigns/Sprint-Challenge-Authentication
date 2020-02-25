@@ -30,4 +30,9 @@ server.use(session(sessionConfig));
 server.use('/api/auth', authRouter);
 server.use('/api/jokes', authenticate, jokesRouter);
 
+
+server.get('/', (req, res) => {
+    res.send('API IS ALIVE')
+})
+
 module.exports = server;
