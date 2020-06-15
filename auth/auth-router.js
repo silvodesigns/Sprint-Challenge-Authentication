@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const hash = require('bcryptjs');
-const token = require('jsonwebtoken');
 
 const Users = require('../users/users-model.js');
 
@@ -29,7 +28,28 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  // implement login
+  //login
+  let { username, password } = req.body;
+
+  Users.findBy({username})
+    .first()
+    .then(user => {
+      if(user && hash.compareSync(password, user.password)){
+        //we store the results from generate token here
+        req.session.user = user; 
+        res.status(200).json({
+          message: `Welcome ${user.username}!`,
+        
+        });
+      } else {
+        res.status(401).json({ message: 'Invalid Credentials' });
+      }
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+  
 });
+
 
 module.exports = router;
